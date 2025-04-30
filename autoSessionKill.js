@@ -36,7 +36,7 @@ function highlightPopup(customValue){
     // After 1 second, remove the popup from the document
     setTimeout(function() {
       popup.remove();
-    }, 3000); // 3 second
+    }, 1000); // 1 second
 }
 
 
