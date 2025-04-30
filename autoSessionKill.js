@@ -1,5 +1,4 @@
 let ageCell = null;
-let dynValue = "Don't kill it";
 
 // 1. Find the column header for "Session Age"
 // querySelectorAll returns 
@@ -16,10 +15,10 @@ headerCells.forEach((th, colIndex) => {
 });
 
 
-function highlightPopup(customValue){
+function highlightPopup(){
     // Create a popup element
     let popup = document.createElement('div');
-    popup.textContent = customValue; // Text content for the popup
+    popup.textContent = "Don't kill it"; // Text content for the popup
     popup.style.position = 'fixed'; // Position fixed on the screen
     popup.style.top = '20px'; // 20px from the top of the window
     popup.style.left = '50%'; // Center it horizontally
@@ -113,7 +112,7 @@ document.addEventListener('click', function() {
 
                 if (totalSeconds2 < 1800) {
                     lastAccessCell.style.backgroundColor = 'red';
-                    highlightPopup(dynValue);
+                    highlightPopup();
                     // Store the first red cell found
                     if (!firstRedCell) {
                         firstRedCell = lastAccessCell;
