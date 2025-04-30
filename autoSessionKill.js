@@ -1,4 +1,5 @@
 let ageCell = null;
+let dynValue = "Don't kill it";
 
 // 1. Find the column header for "Session Age"
 // querySelectorAll returns 
@@ -13,6 +14,31 @@ headerCells.forEach((th, colIndex) => {
     });
   }
 });
+
+
+function highlightPopup(customValue){
+    // Create a popup element
+    let popup = document.createElement('div');
+    popup.textContent = customValue; // Text content for the popup
+    popup.style.position = 'fixed'; // Position fixed on the screen
+    popup.style.top = '20px'; // 20px from the top of the window
+    popup.style.left = '50%'; // Center it horizontally
+    popup.style.transform = 'translateX(-50%)'; // Center the popup exactly
+    popup.style.backgroundColor = 'rgba(0, 0, 0, 0.7)'; // Dark background color
+    popup.style.color = 'white'; // Text color
+    popup.style.padding = '10px 20px'; // Padding around the text
+    popup.style.borderRadius = '5px'; // Rounded corners
+    popup.style.fontSize = '16px'; // Font size
+  
+    // Append the popup to the body of the document
+    document.body.appendChild(popup);
+  
+    // After 1 second, remove the popup from the document
+    setTimeout(function() {
+      popup.remove();
+    }, 3000); // 3 second
+}
+
 
 
 // 2. Function to color cells red if Session Age > 2 hours
@@ -74,8 +100,6 @@ document.addEventListener('click', function() {
             if (lastAccessCell) {
                 let text = lastAccessCell.textContent.trim();
 
-
-
                 const h2 = text.match(/(\d+)h/);
                 const m2 = text.match(/(\d+)m/);
                 const s2 = text.match(/([\d.]+)s/);
@@ -89,7 +113,7 @@ document.addEventListener('click', function() {
 
                 if (totalSeconds2 < 1800) {
                     lastAccessCell.style.backgroundColor = 'red';
-
+                    highlightPopup(dynValue);
                     // Store the first red cell found
                     if (!firstRedCell) {
                         firstRedCell = lastAccessCell;
@@ -99,19 +123,7 @@ document.addEventListener('click', function() {
                 }
             }
         }
-
-        // Scroll to the first red cell if found
-        if (firstRedCell) {
-            const rect = firstRedCell.getBoundingClientRect();
-            const absoluteElementTop = window.pageYOffset + rect.top;
-            const offset = absoluteElementTop - (window.innerHeight / 2);
-
-            window.scrollTo({
-                top: offset,
-                behavior: 'smooth'
-            });
-        }
-    }, 2000); // Wait for 3 seconds
+    }, 2000); // Wait for 2 seconds
 });
 
 
