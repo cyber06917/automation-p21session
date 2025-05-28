@@ -75,7 +75,7 @@ async function evaluateSessionRows() {
       const lastAccessText = cells[1].textContent.trim();
       const seconds = parseTimeString(lastAccessText);
 
-      if (seconds < 1800) {
+      if (seconds < 1850) {
         safeToKill = false;
         highlightPopup();
         break;
@@ -92,7 +92,7 @@ async function evaluateSessionRows() {
       row.cells[3].style.backgroundColor = "#111827";
       row.cells[5].click();
       window.alert = function (msg) {
-        console.log("Killed Session", msg);
+        console.log("Status :", msg);
       };
 
       // Optional: Restore original confirm after action
