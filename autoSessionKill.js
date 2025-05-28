@@ -84,31 +84,21 @@ async function evaluateSessionRows() {
 
     if (safeToKill) {
 
-      let lksessiontime = row.cells[4].textContent.trim();
-      let sessionSeconds = parseTimeString(lksessiontime);
-      console.log("Session time in seconds:", sessionSeconds);
+      // Override confirm early
+      const originalConfirm = window.confirm;
+      window.confirm = () => true;
 
-      // Kind of safe failback
-      // Check if session time is greater than 2 hours (7200 seconds)
-      if (sessionSeconds > 7200) {
-        // Override confirm early
-        const originalConfirm = window.confirm;
-        window.confirm = () => true;
+      // Perform the action
+      row.cells[3].style.backgroundColor = "#111827";
+      row.cells[5].click();
+      window.alert = function (msg) {
+        console.log("Killed Session", msg);
+      };
 
-        // Perform the action
-        row.cells[3].style.backgroundColor = "#111827";
-        row.cells[5].click();
-
-        // Optional: Restore original confirm after action
-        setTimeout(() => {
-          window.confirm = originalConfirm;
-        }, 1000); // Adjust timeout if needed
-
-      }else{
-        row.cells[3].style.backgroundColor = "#2bfc01";
-      }
-
-
+      // Optional: Restore original confirm after action
+      setTimeout(() => {
+        window.confirm = originalConfirm;
+      }, 1000); // Adjust timeout if needed
 
     }
   }
